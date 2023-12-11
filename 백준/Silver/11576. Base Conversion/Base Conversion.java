@@ -34,10 +34,6 @@ public class Main {
 				A *=n;
 			}
 		}
-		if(sum ==0) {
-			System.out.print(0);
-			System.exit(0);
-		}
 		while(sum!=0) {
 			S.add(sum%B);
 			sum = sum/B;
