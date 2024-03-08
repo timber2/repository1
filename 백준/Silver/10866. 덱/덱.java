@@ -3,66 +3,53 @@ import java.io.*;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
-		BufferedReader br =  new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		Deque<Integer> D = new ArrayDeque<>();
+		Stack<Integer> S = new Stack<>();
+		Deque<Integer> D = new LinkedList<>();
 		int N = Integer.parseInt(br.readLine());
+		int X;
 		for(int i=0;i<N;i++) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			switch(st.nextToken()) {
-				case "push_front" :
-					int A = Integer.parseInt(st.nextToken());
-					D.addFirst(A);
+			StringTokenizer str = new StringTokenizer(br.readLine());
+			switch(str.nextToken()) {
+				case "push_front": 
+					X = Integer.parseInt(str.nextToken());
+					D.addFirst(X);
 					break;
 				case "push_back" :
-					A = Integer.parseInt(st.nextToken());
-					D.addLast(A);
+					X = Integer.parseInt(str.nextToken());
+					D.addLast(X);
 					break;
 				case "pop_front" :
-					if(D.isEmpty()) {
-						sb.append("-1\n");
-					}
-					else {
-						sb.append(D.removeFirst() + "\n");
-					}
+					if(D.isEmpty()) sb.append("-1");
+					else sb.append(D.pollFirst());
+					sb.append("\n");
 					break;
 				case "pop_back" :
-					if(D.isEmpty()) {
-						sb.append("-1\n");
-					}
-					else {
-						sb.append(D.removeLast() + "\n");
-					}
+					if(D.isEmpty()) sb.append("-1");
+					else sb.append(D.pollLast());
+					sb.append("\n");
 					break;
 				case "size" :
 					sb.append(D.size() + "\n");
 					break;
 				case "empty" :
-					if(D.isEmpty()) {
-						sb.append("1\n");
-					}
-					else {
-						sb.append("0\n");
-					}
+					if(D.isEmpty()) sb.append("1");
+					else sb.append("0");
+					sb.append("\n");
 					break;
 				case "front" :
-					if(D.isEmpty()) {
-						sb.append("-1\n");
-					}
-					else {
-						sb.append(D.getFirst() + "\n");
-					}
+					if(D.isEmpty()) sb.append("-1");
+					else sb.append(D.getFirst());
+					sb.append("\n");
 					break;
 				case "back" :
-					if(D.isEmpty()) {
-						sb.append("-1\n");
-					}
-					else {
-						sb.append(D.getLast() + "\n");
-					}
+					if(D.isEmpty()) sb.append("-1");
+					else sb.append(D.getLast());
+					sb.append("\n");
 					break;
 			}
-		}
+		} 
 		System.out.print(sb);
 	}
 }
