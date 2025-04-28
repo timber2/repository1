@@ -1,0 +1,22 @@
+import java.util.*;
+import java.io.*;
+
+
+public class Main {
+	public static void main (String[] args) throws IOException {
+	    StringBuilder sb = new StringBuilder();
+	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer str = new StringTokenizer(br.readLine());
+        long A = Long.parseLong(str.nextToken());
+        long B = Long.parseLong(str.nextToken());
+	    long sum = 0;
+	    if(A > B) {
+	        Long temp = A;
+	        A = B;
+	        B = temp; 
+	    }
+	    sum = (A+B) *(B-A+1) /2;
+	    sb.append(sum);
+	    System.out.print(sb);
+	}
+}
