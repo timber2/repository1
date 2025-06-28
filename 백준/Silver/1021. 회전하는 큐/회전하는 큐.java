@@ -8,7 +8,8 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         StringTokenizer st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
-        Deque<Integer> q = new LinkedList<>();
+//        Deque<Integer> q = new LinkedList<>();
+        ArrayDeque<Integer> q = new ArrayDeque<>();
         for(int i=1 ;i  <= N ;i++) q.add(i);
         int first, target, left,right, count = 0;
         st = new StringTokenizer(br.readLine());
