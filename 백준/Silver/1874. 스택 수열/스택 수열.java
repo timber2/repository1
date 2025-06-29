@@ -2,40 +2,42 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-	static int count =0;
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		Stack<Integer> S = new Stack<>();
 		StringBuilder sb = new StringBuilder();
-		Stack<Integer> stk = new Stack<>();
-		int N = Integer.parseInt(br.readLine());
-		for(int i=0;i<N;i++) {
+		// 숫자를 입력받음 ex) 4 3 6 8 7 5 2 1 
+		int n = Integer.parseInt(br.readLine());
+		int it = 0; // 현재 숫자
+		for(int i=0;i<n;i++) {
 			int num = Integer.parseInt(br.readLine());
-			if(num>count) 
-			{
-				while(num!=count) {
-					stk.push(++count);
+			if(num >=it) {
+				while(num !=it) {
+					it++;
+					S.add(it);
 					sb.append("+\n");
 				}
-				stk.pop();
+				S.pop();
 				sb.append("-\n");
 			}
-			else {
-				if(stk.empty()) {
-					System.out.println("NO");
-					return;
+			else {  // num이 현재 it보다 작은 경우에는
+				if(S.empty()) {
+					System.out.print("NO");
+					System.exit(0);
 				}
-				while(stk.peek() !=num) {
-					stk.pop();
+				while(S.peek() != num) {
+					S.pop();
 					sb.append("-\n");
-					if(stk.empty()) {
-						System.out.println("NO");
-						return;
+					if(S.empty()) {
+						System.out.print("NO");
+						System.exit(0);
 					}
 				}
-				stk.pop();
+				S.pop();
 				sb.append("-\n");
 			}
 		}
+		sb.deleteCharAt(sb.length()-1);
 		System.out.print(sb);
 	}
 }
