@@ -1,38 +1,34 @@
+import javax.sound.midi.SysexMessage;
 import java.util.*;
 import java.io.*;
 
 public class Main {
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
-		Stack<Character> S = new Stack<>();
-		String s = br.readLine();
-		int sum = 0;
-		for(int i=0;i<s.length();i++) {
-			char c = s.charAt(i);
-			switch(c) {
-				case '(':
-					S.push(c);
-					break;
-				case ')':
-					if(s.charAt(i-1) =='(') {
-						S.pop();
-						sum+=S.size();
-					}
-					else {
-						S.pop();
-						sum++;
-					}
-					break;
-			}
-			if(i == s.length()-1) {
-				while(!S.isEmpty()) {
-					sum++;
-					S.pop();
-				}
-			}
-		}
-		sb.append(sum+"");
-		System.out.print(sb);
-	}
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static StringBuilder sb = new StringBuilder();
+    static Stack<Character> s = new Stack<>();
+    static int N,count= 0;
+    static String word;
+    static char lastChar;
+    public static void main(String[] args) throws IOException {
+        word = br.readLine();
+        for(int i=0;i < word.length();i++) {
+            if(word.charAt(i) == '(') {
+                lastChar = word.charAt(i);
+                s.push(word.charAt(i));
+            }
+            else { // )
+                if(lastChar == '(') {
+                    s.pop();
+                    count+= s.size();
+                }
+                else {
+                    s.pop();
+                    count++;
+                }
+                lastChar = word.charAt(i);
+            }
+        }
+        sb.append(count);
+        System.out.print(sb);
+    }
 }
