@@ -17,12 +17,9 @@ public class Main {
             if(array[i-1] ==1) q.addFirst(i);
             else if (array[i-1]== 3) q.addLast(i);
             else {
-                if(q.size() < 2) q.addLast(i);
-                else {
-                    int temp = q.removeFirst();
-                    q.addFirst(i);
-                    q.addFirst(temp);
-                }
+                int temp = q.removeFirst();
+                q.addFirst(i);
+                q.addFirst(temp);
             }
         }
         for(int e : q) {
