@@ -18,23 +18,13 @@ public class Main {
             map.put(name, new int[] {kor, eng, math});
         }
         List<String> list = new ArrayList<>(map.keySet());
-        Collections.sort(list, new Comparator<String>() {
-           @Override
-           public int compare(String a, String b) {
-               if(map.get(a)[0] == map.get(b)[0]) {
-                   if(map.get(a)[1] == map.get(b)[1]) {
-                       if(map.get(a)[2] == map.get(b)[2]) {
-                           for(int i=0; i < Math.min(a.length(),  b.length()) ;i++) {
-                               if((int) a.charAt(i) > (int) b.charAt(i)) return 1;
-                               else if((int) a.charAt(i) < (int) b.charAt(i)) return -1;
-                           }
-                       }
-                       return map.get(b)[2] - map.get(a)[2];
-                   }
-                   return map.get(a)[1] - map.get(b)[1];
-               }
-               return map.get(b)[0] - map.get(a)[0];
-           }
+        Collections.sort(list, (a,b) -> {
+            int[] aScore = map.get(a);
+            int[] bScore = map.get(b);
+            if(aScore[0] != bScore[0]) return bScore[0] - aScore[0];
+            else if(aScore[1] !=bScore[1]) return aScore[1] - bScore[1];
+            else if(aScore[2] !=bScore[2]) return bScore[2] - aScore[2];
+            return a.compareTo(b);
         });
         for(String e : list ) sb.append(e).append("\n");
         System.out.print(sb);
