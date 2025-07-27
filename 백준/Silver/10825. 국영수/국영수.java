@@ -1,12 +1,30 @@
 import java.io.*;
 import java.util.*;
 
+class Student implements Comparable<Student> {
+    String name;
+    int kor, eng, math;
+    public Student (String name, int kor, int eng, int math) {
+        this.name = name;
+        this.kor= kor;
+        this.eng = eng;
+        this.math = math;
+    }
+    @Override
+    public int compareTo(Student o) {
+        if(this.kor != o.kor) return o.kor - this.kor;
+        else if(this.eng != o.eng) return this.eng - o.eng;
+        else if(this.math != o.math) return o.math - this.math;
+        else return this.name.compareTo(o.name);
+    }
+}
+
 public class Main {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static StringBuilder sb = new StringBuilder();
     static StringTokenizer st;
-    static Map<String, int[]> map = new HashMap<>();
     static int N;
+    static List<Student> list = new ArrayList<>();
     public static void main(String[] args) throws IOException {
         N = Integer.parseInt(br.readLine());
         for(int i=0;i < N ;i++) {
@@ -15,18 +33,10 @@ public class Main {
             int kor = Integer.parseInt(st.nextToken());
             int eng = Integer.parseInt(st.nextToken());
             int math = Integer.parseInt(st.nextToken());
-            map.put(name, new int[] {kor, eng, math});
+            list.add(new Student(name, kor,eng,math));
         }
-        List<String> list = new ArrayList<>(map.keySet());
-        Collections.sort(list, (a,b) -> {
-            int[] aScore = map.get(a);
-            int[] bScore = map.get(b);
-            if(aScore[0] != bScore[0]) return bScore[0] - aScore[0];
-            else if(aScore[1] !=bScore[1]) return aScore[1] - bScore[1];
-            else if(aScore[2] !=bScore[2]) return bScore[2] - aScore[2];
-            return a.compareTo(b);
-        });
-        for(String e : list ) sb.append(e).append("\n");
+        Collections.sort(list);
+        for(Student e : list) sb.append(e.name).append("\n");
         System.out.print(sb);
     }
 }
