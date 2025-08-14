@@ -14,7 +14,6 @@ public class Main {
         arr = new long [N];
         st = new StringTokenizer(br.readLine());
         for(int i=0;i < N ;i++) arr[i] = Long.parseLong(st.nextToken());
-        Arrays.sort(arr);
         func(M);
         System.out.print(max);
     }
@@ -33,10 +32,7 @@ public class Main {
     }
     public static long calCnt(long length) {
         long cnt =0;
-        for(int i=arr.length-1;i >=0 ; i--) {
-            if(arr[i] / length == 0) break;
-            cnt += arr[i]/length;
-        }
+        for(int i=0;i < N; i++) cnt += arr[i]/length;
         return cnt;
     }
 }
