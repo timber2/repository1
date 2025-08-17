@@ -4,7 +4,7 @@ import java.util.*;
 public class Main {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static StringTokenizer st;
-    static int N , M, min = 2_000_000_000;
+    static int N,M,min = Integer.MAX_VALUE;
     static int[] arr;
     public static void main(String[] args) throws IOException {
         st = new StringTokenizer(br.readLine());
@@ -13,17 +13,14 @@ public class Main {
         arr = new int [N];
         for(int i=0;i < N ;i++) arr[i] = Integer.parseInt(br.readLine());
         Arrays.sort(arr);
-        for(int i=0;i < N ; i++) {
-            int mid, st = i, en = N-1;
-            while(st <= en) {
-                mid = (st + en)/2;
-                int dis = Math.abs(arr[i] - arr[mid]);
-                if(dis < M) st = mid +1;
-                else {
-                    en = mid -1;
-                    min = Math.min(min , dis);
-                }
+        int st = 0 , en = 0;
+        while(st < N) {
+            while(en < N && arr[en] - arr[st] < M) {
+                en++;
             }
+            if(en == N) break;
+            min = Math.min(min, arr[en] - arr[st]);
+            st++;
         }
         System.out.print(min);
     }
