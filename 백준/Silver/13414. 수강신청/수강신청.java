@@ -23,6 +23,6 @@ public class Main {
             }
             idx++;
         }
-        System.out.print(sb);
+        System.out.print(sb.toString());
     }
 }
