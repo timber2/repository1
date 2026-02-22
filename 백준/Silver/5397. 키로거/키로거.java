@@ -2,40 +2,38 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static StringBuilder sb = new StringBuilder();
+    static LinkedList<Character> list;
+    static String s;
+    static int T;
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb;
-        LinkedList<Character> list;
-        ListIterator<Character> it;
-        int N = Integer.parseInt(br.readLine());
-        for(int i=0;i  < N ; i++) {
+        T = Integer.parseInt(br.readLine());
+        while(T-->0 ) {
             list = new LinkedList<>();
-            it = list.listIterator();
-            sb = new StringBuilder();
-            String s = br.readLine();
-            for(int j=0; j <s.length();j++) {
-                if(s.charAt(j) == '<') {
+            ListIterator<Character> it = list.listIterator();
+            s = br.readLine();
+            for(int i=0;i < s.length();i++) {
+                if(s.charAt(i) == '<') {
                     if(it.hasPrevious()) it.previous();
                 }
-                else if(s.charAt(j) == '>') {
+                else if (s.charAt(i) == '>') {
                     if(it.hasNext()) it.next();
                 }
-                else if(s.charAt(j) == '-') {
+                else if (s.charAt(i) == '-') {
                     if(it.hasPrevious()) {
                         it.previous();
                         it.remove();
                     }
-
                 }
                 else {
-                    it.add(s.charAt(j));
+                    it.add(s.charAt(i));
                 }
             }
-            it = list.listIterator();
-            while(it.hasNext()) {
-                sb.append(it.next());
-            }
-            System.out.println(sb);
+            for(Character e : list) sb.append(e);
+            sb.append("\n");
         }
+        sb.deleteCharAt(sb.length()-1);
+        System.out.print(sb.toString());
     }
 }
