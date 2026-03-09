@@ -1,52 +1,36 @@
-// 트럭
-
 import java.io.*;
 import java.util.*;
 
 public class Main {
-    static class Truck {
-        int time, weight;
-        public Truck (int weight) {
-            this.time = 1;
-            this.weight = weight;
-        }
-    }
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
     static StringBuilder sb = new StringBuilder();
     static StringTokenizer st;
-    static int n,w, L, result =0, weightSum =0;
-    static List<Truck> list = new ArrayList<>();
+    static int n,w,L;
+    static ArrayDeque<Integer> q = new ArrayDeque<>();
+    static ArrayDeque<Integer> bridge = new ArrayDeque<>();
     public static void main(String[] args) throws IOException {
         st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken()); // n은 트럭 수
-        w = Integer.parseInt(st.nextToken()); // w는 다리 길이
-        L = Integer.parseInt(st.nextToken()); // L은 최대 하중
+        n = Integer.parseInt(st.nextToken());
+        w = Integer.parseInt(st.nextToken());
+        L = Integer.parseInt(st.nextToken());
         st = new StringTokenizer(br.readLine());
-        Truck nxt = new Truck(Integer.parseInt(st.nextToken()));
-        Loop1 :
-        while(true) {
-            result++;
-            for(int i=list.size()-1; i >=0 ;i--) {
-                list.get(i).time++;
-                if(list.get(i).time > w)  {
-                    weightSum -= list.get(i).weight;
-                    list.remove(i);
-                    n--;
-                    if(n == 0) break Loop1;
+        for(int i=0; i< w ;i++) bridge.add(0);
+        for(int i=0;i <n ;i++) q.add(Integer.parseInt(st.nextToken()));
+        int time =0, totalWeight = 0;
+        while(!bridge.isEmpty()) {
+            time++;
+            totalWeight -= bridge.poll();
+            if(!q.isEmpty()) {
+                if(q.peek() + totalWeight <= L) {
+                    totalWeight += q.peek();
+                    bridge.add(q.poll());
                 }
-            }
-            if(nxt != null) {
-                if(weightSum + nxt.weight <= L) {
-                    list.add(nxt);
-                    weightSum += nxt.weight;
-                    if(st.hasMoreTokens()) {
-                        nxt = new Truck(Integer.parseInt(st.nextToken()));
-                    }
-                    else nxt = null;
+                else {
+                    bridge.add(0);
                 }
             }
         }
-        sb.append(result);
+        sb.append(time);
         System.out.print(sb.toString());
     }
 }
